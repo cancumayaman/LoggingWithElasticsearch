@@ -19,7 +19,8 @@ namespace LoggingWithElasticsearch.Logging
                 .Enrich.WithMachineName()
                 .WriteTo.Debug()
                 .WriteTo.Console()
-                .WriteTo.Elasticsearch(ConfigureElasticSink(configuration,environment))
+                .WriteTo.Elasticsearch(ConfigureElasticSink(configuration, environment))
+                .WriteTo.MongoDB("mongodb://localhost/log")
                 .Enrich.WithProperty("Environemnt",environment)
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();

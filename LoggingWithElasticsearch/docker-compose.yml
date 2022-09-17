@@ -28,7 +28,20 @@ services:
     - ELASTICSEARCH_URL=http://localhost:9200
    networks:
     - elastic
-  
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo 
 networks:
   elastic:
     driver: bridge

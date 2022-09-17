@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace LoggingWithElasticsearch.Controllers
 {
@@ -8,13 +7,12 @@ namespace LoggingWithElasticsearch.Controllers
     public class HomeController : ControllerBase
     {
         private readonly ILogger<HomeController> _logger;
-
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult ErrorLog()
         {
             try
             {
@@ -25,7 +23,13 @@ namespace LoggingWithElasticsearch.Controllers
             {
                 _logger.LogError($"An {ex.Message} occured in HomeController index action ");
                 throw;
-            }            
+            }
+            return Ok();
+        }
+        [HttpGet("/infolog")]
+        public IActionResult InfoLog()
+        {
+            _logger.LogInformation("Info log started");
             return Ok();
         }
     }
